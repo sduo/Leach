@@ -6,19 +6,19 @@ javascript: (function () {
         re: /\bmagnet:\?xt=urn:btih:[a-z0-9]{32,}.*\b/i,
         callback: callback_copy
     }, {
-        re: /\b(http[s]*:\/\/)*pan.baidu.com\/(s\/|share\/init?surl=)[a-z0-9]+\b/i,
+        re: /\bhttp[s]*:\/\/pan.baidu.com\/(s\/|share\/init?surl=)[a-z0-9]+\b/i,
         callback: callback_baidupan
     }, {
-        re: /\b(http[s]*:\/\/)*pan.eehhtt.top\/m\/[a-z0-9]{32}[\?.]*\b/i,
+        re: /\bhttp[s]*:\/\/pan.eehhtt.top\/m\/[a-z0-9]{32}[\?.]*\b/i,
         callback: callback_open
     },{
-        re:/\b(http[s]*:\/\/)*mega.co.nz\/#![a-z0-9]+![a-z0-9]+\b/i,
+        re:/\bhttp[s]*:\/\/mega.co.nz\/#![a-z0-9]+![a-z0-9]+\b/i,
         callback:callback_open
     }, {
-        re: /\b(http[s]*:\/\/)*subhd.com\/.*\b/i,
+        re: /\bhttp[s]*:\/\/subhd.com\/.*\b/i,
         callback: callback_open
     }, {
-        re: /\b(http[s]*:\/\/)*www.zimuku.cn\/subs\/\d+\.html\b/i,
+        re: /\bhttp[s]*:\/\/www.zimuku.cn\/subs\/\d+\.html\b/i,
         callback: callback_open
     }];
 
@@ -84,7 +84,7 @@ javascript: (function () {
 
     function push_copy(url){        
         if(copy.indexOf(url)==-1){
-            console.log("Push Cpoy : %s",url);
+            console.log("Push Cpoy : %s",url);            
             copy.push(url);
         }        
     }
