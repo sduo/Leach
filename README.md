@@ -3,7 +3,7 @@
 ## 说明
 
 * 批量提取网页上的磁力链接到剪贴板；
-* 批量获取网页上的度盘提取码并打开（请配合xxx服用）；
+* 批量获取网页上的度盘提取码并打开（请配合 [netdisk-helper](https://github.com/iccfish/netdisk-helper) 服用）；
 
 ## 使用方式
 
