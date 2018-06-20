@@ -4,13 +4,16 @@ javascript: (function () {
     var rules = [{ tags: 'a', attr: 'href' }, { tags: 'span,p' }];
     var matchs = [{
         re: /\bmagnet:\?xt=urn:btih:[a-z0-9]{32,}.*\b/i,
-        callback: callback_magnet
+        callback: callback_copy
     }, {
         re: /\b(http[s]*:\/\/)*(pan.baidu.com)*(\/)*(s\/|share\/init?surl=)[a-z0-9]+/i,
         callback: callback_baidupan
     }, {
         re: /\b(http[s]*:\/\/)*pan.eehhtt.top\/m\/[a-z0-9]{32}[\?.]*/i,
         callback: callback_open
+    },{
+        re:/\bhttp[s]*:\/\/mega.co.nz\/#![a-z0-9]+![a-z0-9]+\b/i,
+        callback:callback_open
     }, {
         re: /\bhttp[s]*:\/\/subhd.com\/.*\b/i,
         callback: callback_open
@@ -72,37 +75,66 @@ javascript: (function () {
         document.removeEventListener('copy', func_copy, true);
     };
 
-    function callback_magnet(content, element) {       
-        console.log(content);
-        if(copy.indexOf(content)==-1){
-            copy.push(content);
+    function push_open(url){        
+        if(open.indexOf(url)===-1){
+            console.log("Push Open : %s",url);
+            open.push(url);
+        }     
+    }
+
+    function push_copy(url){        
+        if(copy.indexOf(url)==-1){
+            console.log("Push Cpoy : %s",url);
+            copy.push(url);
         }        
     }
 
-    function callback_baidupan(content, element) {        
-        var parent = element;
-        var code = null;
-        while (true) {            
-            if (parent === null) {
-                console.log('Code : not found');
-                break;
+    function callback_copy(content, element) {       
+        push_copy(content);
+    }
+
+    function callback_baidupan(content, element) {
+        function get_code(e){
+            var attr='textContent';
+            if(e.tagName==='INPUT'){
+                attr='value';
             }
-            code = /(提取|密)+[码]*[:：\s]*([a-z0-9]{4})/i.exec(parent.textContent);
-            if (code !== null) {
-                content = content + '#' + code[2];
-                break;
-            }
-            parent = parent.parentElement;
+            var text=e[attr];            
+            m = /(提取|密)+[码]*[:：\s]*([a-z0-9]{4})/i.exec(text);
+            return m===null?null:m[2];
         }
 
-        console.log(content);
-        if(open.indexOf(content)===-1){
-            open.push(content);
-        }        
+        var code = null;
+        if(element.children.length>0){
+            console.log('Children : %d',element.children.length);
+            for(var i=0;i<element.children.length;++i){
+                code=get_code(element.children[i]);
+                if(code!==null){
+                    break;
+                }
+            }
+        }
+        if(code===null){
+            var parent = element;
+            while (true) {            
+                if (parent === null) {                    
+                    break;
+                }
+                code = get_code(parent);
+                if (code !== null) {                    
+                    break;
+                }
+                parent = parent.parentElement;
+            }
+        }
+        console.log('Code : %s',code);
+        if(code!==null){
+            content = content + '#' + code;
+        }
+        push_open(content);  
     }
 
     function callback_open(content, element) {
-        console.log(content);
-        open.push(content);
+        push_open(content);
     }
 })();
