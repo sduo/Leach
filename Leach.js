@@ -3,7 +3,7 @@ javascript: (function () {
 
     var rules = [{ tags: 'a', attr: 'href' }, { tags: 'span,p' }];
     var matchs = [{
-        re: /\bmagnet:\?xt=urn:btih:[a-z0-9]{40}.*\b/i,
+        re: /\bmagnet:\?xt=urn:btih:[a-z0-9]{32,}.*\b/i,
         callback: callback_magnet
     }, {
         re: /\b(http[s]*:\/\/)*(pan.baidu.com)*(\/)*(s\/|share\/init?surl=)[a-z0-9]+/i,
