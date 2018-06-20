@@ -74,7 +74,9 @@ javascript: (function () {
 
     function callback_magnet(content, element) {       
         console.log(content);
-        copy.push(content);
+        if(copy.indexOf(content)==-1){
+            copy.push(content);
+        }        
     }
 
     function callback_baidupan(content, element) {        
@@ -94,7 +96,9 @@ javascript: (function () {
         }
 
         console.log(content);
-        open.push(content);
+        if(open.indexOf(content)===-1){
+            open.push(content);
+        }        
     }
 
     function callback_open(content, element) {
