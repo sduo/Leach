@@ -9,7 +9,7 @@ javascript: (function () {
         re: /\bhttp[s]*:\/\/pan.baidu.com\/(s\/|share\/init?surl=)[a-z0-9]+\b/i,
         callback: callback_baidupan
     }, {
-        re: /\bhttp[s]*:\/\/pan.eehhtt.top\/m\/[a-z0-9]{32}[\?.]*\b/i,
+        re: /\bhttp[s]*:\/\/pan.eehhtt.top\/m\/[a-z0-9]{32}\?.*\b/i,
         callback: callback_open
     },{
         re:/\bhttp[s]*:\/\/mega.co.nz\/#![a-z0-9]+![a-z0-9]+\b/i,
