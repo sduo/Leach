@@ -6,19 +6,19 @@ javascript: (function () {
         re: /\bmagnet:\?xt=urn:btih:[a-z0-9]{32,}.*\b/i,
         callback: callback_copy
     }, {
-        re: /\b(http[s]*:\/\/)*(pan.baidu.com)*(\/)*(s\/|share\/init?surl=)[a-z0-9]+/i,
+        re: /\b(http[s]*:\/\/)*pan.baidu.com\/(s\/|share\/init?surl=)[a-z0-9]+\b/i,
         callback: callback_baidupan
     }, {
-        re: /\b(http[s]*:\/\/)*pan.eehhtt.top\/m\/[a-z0-9]{32}[\?.]*/i,
+        re: /\b(http[s]*:\/\/)*pan.eehhtt.top\/m\/[a-z0-9]{32}[\?.]*\b/i,
         callback: callback_open
     },{
-        re:/\bhttp[s]*:\/\/mega.co.nz\/#![a-z0-9]+![a-z0-9]+\b/i,
+        re:/\b(http[s]*:\/\/)*mega.co.nz\/#![a-z0-9]+![a-z0-9]+\b/i,
         callback:callback_open
     }, {
-        re: /\bhttp[s]*:\/\/subhd.com\/.*\b/i,
+        re: /\b(http[s]*:\/\/)*subhd.com\/.*\b/i,
         callback: callback_open
     }, {
-        re: /\bhttp[s]*:\/\/www.zimuku.cn\/subs\/\d+\.html\b/i,
+        re: /\b(http[s]*:\/\/)*www.zimuku.cn\/subs\/\d+\.html\b/i,
         callback: callback_open
     }];
 
@@ -39,7 +39,7 @@ javascript: (function () {
                     if(m===null){
                         return;
                     }else{
-                        console.log('Match : %s[%d]', tag, i);
+                        console.log('Match : %s[%d]', tag, i);    
                         if (typeof (match.callback) === 'function') {
                             match.callback(m[0], element);
                         }
@@ -93,7 +93,7 @@ javascript: (function () {
         push_copy(content);
     }
 
-    function callback_baidupan(content, element) {
+    function callback_baidupan(content, element) { 
         function get_code(e){
             var attr='textContent';
             if(e.tagName==='INPUT'){
