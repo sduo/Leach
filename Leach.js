@@ -3,14 +3,20 @@ javascript: (function () {
 
     var rules=[{tag:'a',attr:'href'}];
     var matchs=[{
-        re:/\b(magnet:\?xt=urn:btih:)*[a-z0-9]{40}.*\b/i,
+        re:/\bmagnet:\?xt=urn:btih:[a-z0-9]{40}.*\b/i,
         callback:callback_magnet
     },{
         re:/\b(http[s]*:\/\/)*(pan.baidu.com)*(\/)*(s\/|share\/init?surl=)[a-z0-9]+/i,
         callback:callback_baidupan
     },{
         re:/\b(http[s]*:\/\/)*pan.eehhtt.top\/m\/[a-z0-9]{32}[\?.]*/i,
-        callback:callback_eehhtt
+        callback:callback_open
+    },{
+        re:/\bhttp[s]*:\/\/subhd.com\/.*\b/i,
+        callback:callback_open
+    },{
+        re:/\bhttp[s]*:\/\/www.zimuku.cn\/subs\/\d+\.html\b/i,
+        callback:callback_open
     }];
 
     var copy=[];
@@ -47,8 +53,9 @@ javascript: (function () {
 
     console.log('Open : %d',open.length);
     if(open.length>0){
-        open.forEach(url => {
-            window.open(url);
+       open.forEach(url => {
+            console.log('%s',url);
+            window.open(url,'_blank');
         });
     }
 
@@ -89,7 +96,7 @@ javascript: (function () {
         open.push(content);
     }
 
-    function callback_eehhtt(content,element){
+    function callback_open(content,element){
         console.log(content);
         open.push(content);
     }
